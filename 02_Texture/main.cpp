@@ -46,6 +46,9 @@ int main() {
         0, 1, 3, // first triangle
         1, 2, 3  // second triangle
     };
+
+
+
     unsigned int VBO, VAO, EBO;
     glGenVertexArrays(1, &VAO);
     glGenBuffers(1, &VBO);
@@ -69,6 +72,7 @@ int main() {
     glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
     glEnableVertexAttribArray(2);
 
+
     // load and create a texture 
     // -------------------------
     unsigned int texture, texture2;
@@ -83,6 +87,7 @@ int main() {
     // load image, create texture and generate mipmaps
     int width, height, nrChannels;
     
+
     unsigned char* data = stbi_load("E:/CG/LearnOpenGL/resources/wall.jpg", &width, &height, &nrChannels, 0);
     if (data)
     {
