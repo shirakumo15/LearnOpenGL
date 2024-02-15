@@ -1,12 +1,15 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
-
 #include "Shader.h"
 
 #define STB_IMAGE_IMPLEMENTATION    // 必须定义宏才能使用相关函数
 #include <stb/stb_image.h>
 
 #include <iostream>
+
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 int main() {
 	glfwInit();
@@ -130,7 +133,6 @@ int main() {
     stbi_image_free(data);
 
 
-
     // render loop
     // -----------
     while (!glfwWindowShouldClose(window))
@@ -150,6 +152,13 @@ int main() {
         glActiveTexture(GL_TEXTURE1);
         glBindTexture(GL_TEXTURE_2D, texture2);
         glUniform1i(glGetUniformLocation(ourShader.ID, "texture2"), 1);
+
+        // 变换
+        glm::mat4 trans = glm::mat4(1.0f);
+        trans = glm::rotate(trans, glm::radians((GLfloat)glfwGetTime()), glm::vec3(0.0, 0.0, 1.0));
+        //trans = glm::scale(trans, glm::vec3(0.5, 0.5, 0.5));
+        GLuint transformLoc = glGetUniformLocation(ourShader.ID, "transform");
+        glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(trans));
 
 
         // render container
